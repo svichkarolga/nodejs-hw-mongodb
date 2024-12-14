@@ -28,12 +28,12 @@ export const createContactSchema = Joi.object({
       'string.base': 'Input correct email, for example: example@domain.com',
       'any.required': 'Email is required',
     }),
-  isFavorite: Joi.boolean().required().messages({
+  isFavourite: Joi.boolean().required().messages({
     'boolean.base': 'Field must be true or false',
     'any.required': 'Field is required',
   }),
   contactType: Joi.string()
-    .valid('personal', 'home', 'other')
+    .valid('personal', 'home', 'work')
     .required()
     .messages({
       'any.only': 'Field should have one of this values: personal, home, other',
