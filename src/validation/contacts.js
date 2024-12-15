@@ -36,7 +36,7 @@ export const createContactSchema = Joi.object({
     .valid('personal', 'home', 'work')
     .required()
     .messages({
-      'any.only': 'Field should have one of this values: personal, home, other',
+      'any.only': 'Field should have one of this values: personal, home, work',
       'any.required': 'Field is required',
     }),
 });
@@ -67,7 +67,7 @@ export const updateContactSchema = Joi.object({
   isFavourite: Joi.boolean().messages({
     'boolean.base': 'Field must be true or false',
   }),
-  contactType: Joi.string().valid('personal', 'home', 'other').messages({
-    'any.only': 'Field should have one of this values: personal, home, other',
+  contactType: Joi.string().valid('personal', 'home', 'work').messages({
+    'any.only': 'Field should have one of this values: personal, home, work.',
   }),
 });
