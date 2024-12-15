@@ -28,7 +28,7 @@ export const createContactSchema = Joi.object({
       'string.base': 'Input correct email, for example: example@domain.com',
       'any.required': 'Email is required',
     }),
-  isFavorite: Joi.boolean().required().messages({
+  isFavourite: Joi.boolean().required().messages({
     'boolean.base': 'Field must be true or false',
     'any.required': 'Field is required',
   }),
@@ -64,7 +64,7 @@ export const updateContactSchema = Joi.object({
     .messages({
       'string.base': 'Input correct email, for example: example@domain.com',
     }),
-  isFavorite: Joi.boolean().messages({
+  isFavourite: Joi.boolean().messages({
     'boolean.base': 'Field must be true or false',
   }),
   contactType: Joi.string().valid('personal', 'home', 'other').messages({
