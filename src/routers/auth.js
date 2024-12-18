@@ -20,10 +20,4 @@ router.post(
   ctrlWrapper(loginUserController),
 );
 
-router.post(
-  '/login',
-  validateBody(loginUserSchema),
-  ctrlWrapper(loginUserController),
-);
-
 export default router;
