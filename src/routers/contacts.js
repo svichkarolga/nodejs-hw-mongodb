@@ -20,6 +20,7 @@ import { ROLES } from '../constants/index.js';
 const router = Router();
 
 router.use(authenticate);
+
 router.get('/', checkRoles(ROLES.USER), ctrlWrapper(getContactsController));
 
 router.get(
@@ -28,6 +29,7 @@ router.get(
   isValidId,
   ctrlWrapper(getContactsByIdController),
 );
+
 
 router.post(
   '/',
