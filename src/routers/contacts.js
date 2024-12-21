@@ -13,15 +13,14 @@ import {
   updateContactSchema,
 } from '../validation/contacts.js';
 import { isValidId } from '../middlewares/isValidId.js';
-123;
 import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
 router.use(authenticate);
+
 router.get('/', ctrlWrapper(getContactsController));
 
-// router.get('/', ctrlWrapper(getContactsController));
 router.get('/:contactId', isValidId, ctrlWrapper(getContactsByIdController));
 
 router.post(
