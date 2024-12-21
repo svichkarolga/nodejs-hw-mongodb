@@ -39,6 +39,9 @@ export const createContactSchema = Joi.object({
       'any.only': 'Field should have one of this values: personal, home, work',
       'any.required': 'Field is required',
     }),
+  userId: Joi.string().hex().length(24).required().messages({
+    'any.required': 'Field is required',
+  }),
 });
 
 export const updateContactSchema = Joi.object({
@@ -70,4 +73,7 @@ export const updateContactSchema = Joi.object({
   contactType: Joi.string().valid('personal', 'home', 'work').messages({
     'any.only': 'Field should have one of this values: personal, home, work.',
   }),
+  // userId: Joi.string().hex().length(24).required().messages({
+  //   'any.required': 'Field is required',
+  // }),
 });
