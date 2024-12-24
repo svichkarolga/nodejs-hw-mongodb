@@ -15,14 +15,13 @@ const contactSchema = new Schema(
     },
     isFavourite: {
       type: Boolean,
-      required: true,
       default: false,
     },
     contactType: {
       type: String,
       enum: ['personal', 'home', 'work'],
       required: true,
-      default: ['personal'],
+      default: 'personal',
     },
     userId: {
       type: Schema.Types.ObjectId,
