@@ -23,14 +23,11 @@ export const createContactSchema = Joi.object({
       minDomainSegments: 2,
       tlds: { allow: ['com', 'net'] },
     })
-    .required()
     .messages({
       'string.base': 'Input correct email, for example: example@domain.com',
-      'any.required': 'Email is required',
     }),
-  isFavourite: Joi.boolean().required().messages({
+  isFavourite: Joi.boolean().messages({
     'boolean.base': 'Field must be true or false',
-    'any.required': 'Field is required',
   }),
   contactType: Joi.string()
     .valid('personal', 'home', 'work')
