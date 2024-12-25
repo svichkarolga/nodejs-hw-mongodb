@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { emailRegexp } from '../../constants/index.js';
 
 const contactSchema = new Schema(
   {
@@ -12,6 +13,7 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
+      match: emailRegexp,
     },
     isFavourite: {
       type: Boolean,
