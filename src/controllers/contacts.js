@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import {
   getAllContacts,
   getContactsById,
@@ -11,6 +12,9 @@ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+
+dotenv.config();
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -52,9 +56,15 @@ export const createContactController = async (req, res) => {
   const photo = req.file;
   console.log(photo);
   let photoUrl;
+
   if (photo) {
-    photoUrl = await saveFileToUploadDir(photo);
+    if (process.env.ENABLE_CLOUDINARY === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
   }
+
   const contact = await createContact({ ...req.body, userId, photo: photoUrl });
   res.status(201).json({
     status: 201,
@@ -71,15 +81,20 @@ export const patchContactController = async (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(contactId)) {
     return next(createHttpError(400, 'Invalid contactId'));
   }
+
   if (photo) {
-    photoUrl = await saveFileToUploadDir(photo);
+    if (process.env.ENABLE_CLOUDINARY === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
   }
+
   const result = await patchContact(
     contactId,
     { userId, ...req.body, photo: photoUrl },
     { new: true },
   );
-  console.log(result);
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
     return;
