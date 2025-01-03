@@ -38,6 +38,9 @@ export const createContactSchema = Joi.object({
       'any.only': 'Field should have one of this values: personal, home, work',
       'any.required': 'Field is required',
     }),
+  photo: Joi.string().uri().optional().messages({
+    'string.uri': 'Photo must be a valid URL',
+  }),
 });
 
 export const updateContactSchema = Joi.object({
