@@ -50,6 +50,7 @@ export const getContactsByIdController = async (req, res, next) => {
 export const createContactController = async (req, res) => {
   const userId = req.user._id;
   const photo = req.file;
+  console.log(photo);
   let photoUrl;
   if (photo) {
     photoUrl = await saveFileToUploadDir(photo);
