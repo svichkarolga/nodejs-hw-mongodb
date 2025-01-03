@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import {
   getAllContacts,
   getContactsById,
@@ -9,6 +10,7 @@ import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -47,7 +49,12 @@ export const getContactsByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const userId = req.user._id;
-  const contact = await createContact({ ...req.body, userId });
+  const photo = req.file;
+  let photoUrl;
+  if (photo) {
+    photoUrl = await saveFileToUploadDir(photo);
+  }
+  const contact = await createContact({ ...req.body, userId, photo: photoUrl });
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -58,7 +65,20 @@ export const createContactController = async (req, res) => {
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const userId = req.user._id;
-  const result = await patchContact(contactId, req.body, userId);
+  const photo = req.file;
+  let photoUrl;
+  if (!mongoose.Types.ObjectId.isValid(contactId)) {
+    return next(createHttpError(400, 'Invalid contactId'));
+  }
+  if (photo) {
+    photoUrl = await saveFileToUploadDir(photo);
+  }
+  const result = await patchContact(
+    contactId,
+    { userId, ...req.body, photo: photoUrl },
+    { new: true },
+  );
+  console.log(result);
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
     return;
