@@ -1,0 +1,53 @@
+description: Successfully found contact with id ${contactId}
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Successfully found contact with id ${contactId}
+        data:
+          type: object
+          required:
+            - id
+            - name
+            - phoneNumber
+            - email
+            - isFavourite
+            - contactType
+            - userId
+            - photo
+          properties:
+            id:
+              type: string
+              example: '65ca67e7ae7f10c88b598384'
+            name:
+              type: string
+              example: 'John Doe'
+            phoneNumber:
+              type: string
+              example: '+380698785983'
+            email:
+              type: string
+              example: 'john.doe@example.com'
+            isFavourite:
+              type: boolean
+              example: true
+            contactType:
+              type: string
+              enum: ['personal', 'home', 'work']
+              example: home
+            userId:
+              type: string
+              example: '6772ca47ec3d4ed4fa33c931'
+            photo:
+              type: string
+              example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
