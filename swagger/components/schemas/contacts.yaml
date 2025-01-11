@@ -25,7 +25,7 @@ properties:
     type: boolean
     example: true
   contactType:
-    description: ype of the contact
+    description: Type of the contact
     type: string
     enum: ['personal', 'home', 'work']
     example: home
