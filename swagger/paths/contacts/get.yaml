@@ -7,11 +7,42 @@ security:
   - bearerAuth: []
 parameters:
   - in: query
-    name: query
-    required: true
+    name: page
+    required: false
+    schema:
+      type: integer
+      example: 1
+    description: Page number for pagination.
+  - in: query
+    name: perPage
+    required: false
+    schema:
+      type: integer
+      example: 10
+    description: Number of contacts per page.
+  - in: query
+    name: sortBy
+    required: false
     schema:
       type: string
-      example: '65ca67e7ae7f10c88b598384'
+      enum: [name, email, phoneNumber]
+      example: name
+    description: Field to sort contacts by.
+  - in: query
+    name: sortOrder
+    required: false
+    schema:
+      type: string
+      enum: [asc, desc]
+      example: asc
+    description: Sort order (ascending or descending).
+  - in: query
+    name: filter
+    required: false
+    schema:
+      type: string
+      example: 'isFavourite=true'
+    description: Filter conditions for contacts (e.g., by favorite status).
 responses:
   '200':
     description: 'Get all contacts'
@@ -32,6 +63,36 @@ responses:
               example: Successfully found contacts
             data:
               type: object
-              $ref: ../../components/schemas/contacts.yaml
+              required:
+                - data
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/contacts.yaml
+                page:
+                  type: number
+                  example: 2
+                perPage:
+                  type: number
+                  example: 4
+                totalItems:
+                  type: number
+                  example: 4
+                totalPages:
+                  type: number
+                  example: 4
+                hasNextPage:
+                  type: boolean
+                  example: false
+                hasPreviousPage:
+                  type: boolean
+                  example: true
   '404':
     $ref: '../../components/responses/404.yaml'
