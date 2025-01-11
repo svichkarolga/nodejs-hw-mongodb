@@ -13,10 +13,10 @@ tags:
     description: Auth operations.
 servers:
   - url: https://nodejs-hw-mongodb-m7kd.onrender.com
-    description: Local development server
+  # description: Local development server
   # - url: https://api.example.com/v1
   # description: Production server
-  security:
+security:
   - bearerAuth: []
 paths:
   /contacts/{contactId}:
