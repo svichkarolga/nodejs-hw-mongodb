@@ -11,12 +11,12 @@
   },
   "servers": [
     {
-      "url": "https://nodejs-hw-mongodb-m7kd.onrender.com"
-    }
-  ],
-  "security": [
+      "url": "http://nodejs-hw-mongodb-m7kd.onrender.com",
+      "description": "Production server"
+    },
     {
-      "bearerAuth": []
+      "url": "http://localhost:3000",
+      "description": "Local development server"
     }
   ],
   "tags": [
@@ -343,19 +343,88 @@
           }
         ],
         "requestBody": {
-          "description": "Contact data",
-          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/contacts"
+                "type": "object",
+                "required": [
+                  "name",
+                  "phoneNumber",
+                  "email",
+                  "isFavourite",
+                  "contactType",
+                  "photo"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "Contacts's name",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "phoneNumber": {
+                    "description": "Contact's phone",
+                    "type": "string",
+                    "example": "+380698785983"
+                  },
+                  "email": {
+                    "description": "Student's age",
+                    "type": "string",
+                    "example": "Doe@example.com"
+                  },
+                  "isFavourite": {
+                    "description": "Whether the contact is marked as favourite",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "contactType": {
+                    "description": "Type of the contact",
+                    "type": "string",
+                    "enum": [
+                      "personal",
+                      "home",
+                      "work"
+                    ],
+                    "example": "personal"
+                  },
+                  "photo": {
+                    "description": "Link to contact's photo",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "$ref": "#/components/responses/201"
+            "description": "Successfully created a contact",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created a student!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/contacts"
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -411,29 +480,11 @@
             ],
             "example": "home"
           },
-          "userId": {
-            "description": "ID of the user who created this contact",
-            "type": "string",
-            "format": "uuid",
-            "example": "6772ca47ec3d4ed4fa33c931"
-          },
           "photo": {
             "description": "Link to contact's photo",
             "type": "string",
             "format": "uri",
             "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
-          },
-          "createdAt": {
-            "description": "Timestamp when the contact was created",
-            "type": "string",
-            "format": "date-time",
-            "example": "2023-01-01T12:34:56Z"
-          },
-          "updatedAt": {
-            "description": "Timestamp when the contact was last updated",
-            "type": "string",
-            "format": "date-time",
-            "example": "2023-01-01T13:45:00Z"
           }
         }
       },
@@ -484,34 +535,6 @@
       }
     },
     "responses": {
-      "201": {
-        "description": "Creates a contact",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 201
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully created a new contact!"
-                },
-                "data": {
-                  "$ref": "#/components/schemas/contacts"
-                }
-              }
-            }
-          }
-        }
-      },
       "204": {
         "description": "Contact successfully deleted",
         "content": {}
