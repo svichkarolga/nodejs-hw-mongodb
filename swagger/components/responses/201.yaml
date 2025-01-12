@@ -1,4 +1,4 @@
-description: Contact not found
+description: 'Creates a contact'
 content:
   application/json:
     schema:
@@ -6,10 +6,13 @@ content:
       required:
         - status
         - message
+        - data
       properties:
         status:
           type: integer
-          example: 404
+          example: 201
         message:
           type: string
-          example: Contact not found
+          example: Successfully created a new contact!
+        data:
+          $ref: ../../components/schemas/contacts.yaml

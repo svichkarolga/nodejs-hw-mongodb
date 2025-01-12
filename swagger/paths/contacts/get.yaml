@@ -36,13 +36,6 @@ parameters:
       enum: [asc, desc]
       example: asc
     description: Sort order (ascending or descending).
-  - in: query
-    name: filter
-    required: false
-    schema:
-      type: string
-      example: 'isFavourite=true'
-    description: Filter conditions for contacts (e.g., by favorite status).
 responses:
   '200':
     description: 'Get all contacts'
