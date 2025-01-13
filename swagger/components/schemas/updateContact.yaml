@@ -1,7 +1,6 @@
 type: object
 required:
   - _id
-  - userId
 properties:
   name:
     description: Name of contact
