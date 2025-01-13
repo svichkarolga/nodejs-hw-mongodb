@@ -114,7 +114,6 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -182,8 +181,7 @@
                       "example": "Successfully updated a contact!"
                     },
                     "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/updateContact"
+                      "type": "object"
                     }
                   }
                 }
@@ -488,8 +486,7 @@
         "required": [
           "name",
           "phoneNumber",
-          "contactType",
-          "userId"
+          "contactType"
         ],
         "properties": {
           "name": {
@@ -526,50 +523,6 @@
             "description": "Link to contact's photo",
             "type": "string",
             "format": "uri",
-            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
-          }
-        }
-      },
-      "updateContact": {
-        "type": "object",
-        "required": [
-          "_id"
-        ],
-        "properties": {
-          "name": {
-            "description": "Name of contact",
-            "type": "string",
-            "example": "John Doe"
-          },
-          "phoneNumber": {
-            "description": "Phone number of the contact",
-            "type": "string",
-            "example": "+380698785983"
-          },
-          "email": {
-            "description": "Contact's email address",
-            "type": "string",
-            "example": "Doe@example.com"
-          },
-          "isFavourite": {
-            "description": "Whether the contact is marked as favourite",
-            "type": "boolean",
-            "example": true
-          },
-          "contactType": {
-            "description": "Type of the contact",
-            "type": "string",
-            "enum": [
-              "personal",
-              "home",
-              "work"
-            ],
-            "example": "home"
-          },
-          "photo": {
-            "description": "Link to contact's photo",
-            "type": "string",
-            "format": "binary",
             "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
           }
         }

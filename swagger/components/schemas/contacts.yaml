@@ -3,7 +3,7 @@ required:
   - name
   - phoneNumber
   - contactType
-  - userId
+  # - userId
 properties:
   name:
     description: Name of contact
@@ -26,23 +26,8 @@ properties:
     type: string
     enum: ['personal', 'home', 'work']
     example: home
-  # userId:
-  #   description: ID of the user who created this contact
-  #   type: string
-  #   format: uuid
-  #   example: 6772ca47ec3d4ed4fa33c931
   photo:
     description: Link to contact's photo
     type: string
     format: uri
     example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
-  # createdAt:
-  #   description: Timestamp when the contact was created
-  #   type: string
-  #   format: date-time
-  #   example: '2023-01-01T12:34:56Z'
-  # updatedAt:
-  #   description: Timestamp when the contact was last updated
-  #   type: string
-  #   format: date-time
-  #   example: '2023-01-01T13:45:00Z'
