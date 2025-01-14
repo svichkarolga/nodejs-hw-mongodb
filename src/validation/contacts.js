@@ -25,10 +25,11 @@ export const createContactSchema = Joi.object({
       tlds: { allow: ['com', 'net'] },
     })
     .pattern(emailRegexp)
+    .allow('')
     .messages({
       'string.base': 'Input correct email, for example: example@domain.com',
     }),
-  isFavourite: Joi.boolean().messages({
+  isFavourite: Joi.boolean().allow('').messages({
     'boolean.base': 'Field must be true or false',
   }),
   contactType: Joi.string()
@@ -38,7 +39,7 @@ export const createContactSchema = Joi.object({
       'any.only': 'Field should have one of this values: personal, home, work',
       'any.required': 'Field is required',
     }),
-  photo: Joi.string().uri().optional().messages({
+  photo: Joi.string().uri().optional().allow('').messages({
     'string.uri': 'Photo must be a valid URL',
   }),
 });
