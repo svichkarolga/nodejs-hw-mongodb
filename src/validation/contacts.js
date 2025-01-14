@@ -50,19 +50,19 @@ export const updateContactSchema = Joi.object({
     'string.max': 'Name should have at most 20 characters',
   }),
   phoneNumber: Joi.string()
-    .allow('')
     .optional()
     .pattern(/^[+]?[0-9]{10,15}$/)
     .min(3)
     .max(20)
+    .allow('')
     .messages({
       'string.base': 'PhoneNumber should start with "+"',
       'string.min': 'Name should have at least 3 characters',
       'string.max': 'Name should have at most 20 characters',
     }),
   email: Joi.string()
-    .allow('')
     .optional()
+    .allow('')
     .email({
       minDomainSegments: 2,
       tlds: { allow: ['com', 'net'] },

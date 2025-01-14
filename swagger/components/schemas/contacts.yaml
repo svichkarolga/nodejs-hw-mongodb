@@ -3,7 +3,6 @@ required:
   - name
   - phoneNumber
   - contactType
-  # - userId
 properties:
   name:
     description: Name of contact
